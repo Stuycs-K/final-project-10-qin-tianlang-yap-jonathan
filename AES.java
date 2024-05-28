@@ -50,7 +50,22 @@ public class AES {
 
     //shiftRows
     public static void shiftRows(int[][] data) {
+        int[][] returnData = new int[4][4];
+        // int i = 0;
+        // int j = 0;
+        // int[] tempnumbers = new int[4];
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                int offset = i;
+                // tempnumbers[i + offset] = data[i][j];
+                returnData[i][i + offset] = data[i][j];
+            }
+        }
+    }
 
+    //delete later 
+    public static void testShiftRow() {
+        
     }
 
     //mixColumn
