@@ -1,10 +1,10 @@
 # Work Log
 
-## GROUP MEMBER 1
+## Tianlang Qin
 
-### date x
-
-info
+### 5/23/2024
+Researched the implementation of AES
+Created the outline for the code
 
 ### date y
 
