@@ -4,6 +4,7 @@ import java.nio.file.Paths;
 
 public class AES {
     public static void main(String[] args) throws IOException{
+        // https://github.com/francisrstokes/githublog/blob/main/2022/6/15/rolling-your-own-crypto-aes.md
         byte[] text = Files.readAllBytes(Paths.get(args[0]));
         byte[] key = Files.readAllBytes(Paths.get(args[1]));
         
@@ -16,10 +17,6 @@ public class AES {
             mixColumn(data);
             addRoundKey(data);
         }
-
-
-
-        
     }
 
     // 128 bits key
