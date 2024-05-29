@@ -5,18 +5,34 @@ import java.nio.file.Paths;
 public class AES {
     public static void main(String[] args) throws IOException{
         // https://github.com/francisrstokes/githublog/blob/main/2022/6/15/rolling-your-own-crypto-aes.md
-        byte[] text = Files.readAllBytes(Paths.get(args[0]));
-        byte[] key = Files.readAllBytes(Paths.get(args[1]));
+        byte[] input_text = Files.readAllBytes(Paths.get(args[0]));
+        byte[] input_key = Files.readAllBytes(Paths.get(args[1]));
         
+        int[] text = new int[input_text.length];
+        for (int i = 0; i < input_text.length; i++) {
+            text[i] = input_text[i] & 0xFF;
+        }
+
+        // for (int i = 0; i < input_text.length; i++) {
+        //     System.out.print(text[i] + " ");
+        // }
+
+        int[] key = new int[input_key.length];
+        for (int i = 0; i < input_key.length; i++) {
+            key[i] = input_key[i] & 0xFF;
+        }
+
         // split original data to 16 byte sections, each 16 byte section will be stored in a 4x4 int[][], with each element storing one byte in hex. 
         int temp =1; //stub
-        while (temp==1){
+        while (temp==0){
             int[][] data = new int[4][4];
             subBytes(data);
             shiftRows(data);
             mixColumn(data);
             addRoundKey(data);
         }
+
+       
     }
 
     // 128 bits key
@@ -43,6 +59,15 @@ public class AES {
             {0x8c, 0xa1, 0x89, 0x0d, 0xbf, 0xe6, 0x42, 0x68, 0x41, 0x99, 0x2d, 0x0f, 0xb0, 0x54, 0xbb, 0x16},
         };
 
+        // for (int i = 0; i < s_box.length; i ++) {
+        //     System.out.print(s_box[0][i] + " ");
+        // }
+
+        for (int i = 0; i < data.length; i++) {
+            for (int j = 0; j < data[0].length; j++) {
+                data[i][j] = s_box[data[i][j] / 16][ data[i][j] % 16];
+            }
+        }
     }
 
     //shiftRows
