@@ -46,7 +46,7 @@ public class AES {
     }
 
     //shiftRows
-    public static void shiftRows(int[][] data) {
+    public static int[][] shiftRows(int[][] data) {
         int[][] returnData = new int[4][4];
         // int i = 0;
         // int j = 0;
@@ -58,11 +58,18 @@ public class AES {
                 returnData[i][i + offset] = data[i][j];
             }
         }
+        return returnData;
     }
 
     //delete later 
     public static void testShiftRow() {
-        
+        int[][] idk = {
+            {74, 55, 12, 32},
+            {64, 23, 93, 62},
+            {67, 87, 34, 12},
+            {54, 67, 87, 90},
+        };
+        System.out.println(shiftRows(idk));
     }
 
     //mixColumn
