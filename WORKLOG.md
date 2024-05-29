@@ -3,20 +3,18 @@
 ## Tianlang Qin
 
 ### 5/23/2024
-Researched the implementation of AES
+Researched the implementation of AES \
 Created the outline for the code
 
-### date y
+### 5/28/2024
+Organized s_box \
+Added method outline for AES
 
-info
+## Jonathan Yap
 
+### 5/24/2024
+added s_box & inv_s_box 
 
-## GROUP MEMBER 2
-
-### date x
-
-info
-
-### date y
-
-info
+### 5/28/2024
+Organized s_box \
+Worked on shiftByte

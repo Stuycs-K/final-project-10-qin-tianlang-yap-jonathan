@@ -71,7 +71,7 @@ public class AES {
     }
 
     //shiftRows
-    public static void shiftRows(int[][] data) {
+    public static int[][] shiftRows(int[][] data) {
         int[][] returnData = new int[4][4];
         // int i = 0;
         // int j = 0;
@@ -80,15 +80,19 @@ public class AES {
             for (int j = 0; j < 4; j++) {
                 int offset = i;
                 // tempnumbers[i + offset] = data[i][j];
-                returnData[i][i + offset] = data[i][j];
+                if (j - offset < 0) {
+                    //out of bounds error
+                    returnData[i][j - offset + 4] = data[i][j];
+                }
+                else {
+                    returnData[i][j - offset] = data[i][j];
+                }
             }
         }
+        return returnData;
     }
 
-    //delete later 
-    public static void testShiftRow() {
-        
-    }
+
 
     //mixColumn
     public static void mixColumn(int[][] data) {
@@ -99,6 +103,23 @@ public class AES {
     public static void addRoundKey(int[][] data) {
 
     }
+
+        //delete later 
+        public static void testShiftRow() {
+            int[][] idk = {
+                {74, 55, 12, 32},
+                {64, 23, 93, 62},
+                {67, 87, 34, 12},
+                {54, 67, 87, 90},
+            };
+            int[][] a = shiftRows(idk);
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 4; j++) {
+                    System.out.print(a[i][j] + " ");
+                }
+                System.err.println();
+            }
+        }
 
 }
 
