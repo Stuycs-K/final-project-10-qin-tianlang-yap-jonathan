@@ -7,7 +7,7 @@ public class AES {
         // https://github.com/francisrstokes/githublog/blob/main/2022/6/15/rolling-your-own-crypto-aes.md
         byte[] text = Files.readAllBytes(Paths.get(args[0]));
         byte[] key = Files.readAllBytes(Paths.get(args[1]));
-        
+        testShiftRow();
         // split original data to 16 byte sections, each 16 byte section will be stored in a 4x4 int[][], with each element storing one byte in hex. 
         int temp =1; //stub
         while (temp==1){
@@ -55,22 +55,19 @@ public class AES {
             for (int j = 0; j < 4; j++) {
                 int offset = i;
                 // tempnumbers[i + offset] = data[i][j];
-                returnData[i][i + offset] = data[i][j];
+                if (j - offset < 0) {
+                    //out of bounds error
+                    returnData[i][j - offset + 4] = data[i][j];
+                }
+                else {
+                    returnData[i][j - offset] = data[i][j];
+                }
             }
         }
         return returnData;
     }
 
-    //delete later 
-    public static void testShiftRow() {
-        int[][] idk = {
-            {74, 55, 12, 32},
-            {64, 23, 93, 62},
-            {67, 87, 34, 12},
-            {54, 67, 87, 90},
-        };
-        System.out.println(shiftRows(idk));
-    }
+
 
     //mixColumn
     public static void mixColumn(int[][] data) {
@@ -81,6 +78,23 @@ public class AES {
     public static void addRoundKey(int[][] data) {
 
     }
+
+        //delete later 
+        public static void testShiftRow() {
+            int[][] idk = {
+                {74, 55, 12, 32},
+                {64, 23, 93, 62},
+                {67, 87, 34, 12},
+                {54, 67, 87, 90},
+            };
+            int[][] a = shiftRows(idk);
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 4; j++) {
+                    System.out.print(a[i][j] + " ");
+                }
+                System.err.println();
+            }
+        }
 
 }
 
