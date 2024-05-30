@@ -14,6 +14,9 @@ Added method outline for AES
 Worked on and finished subBytes
 Worked on Input of data
 
+### 5/30/2024
+Researched mixColumn
+
 ## Jonathan Yap
 
 ### 5/24/2024
@@ -26,3 +29,6 @@ Worked on shiftByte
 ### 5/29/2024
 Finished shiftRows
 Tested shiftRows
+
+### 5/30/2024
+Researched addRoundKey
