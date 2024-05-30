@@ -104,22 +104,45 @@ public class AES {
 
     }
 
-        //delete later 
-        public static void testShiftRow() {
-            int[][] idk = {
-                {74, 55, 12, 32},
-                {64, 23, 93, 62},
-                {67, 87, 34, 12},
-                {54, 67, 87, 90},
-            };
-            int[][] a = shiftRows(idk);
-            for (int i = 0; i < 4; i++) {
-                for (int j = 0; j < 4; j++) {
-                    System.out.print(a[i][j] + " ");
-                }
-                System.err.println();
+    /*
+     * byte[] text = Files.readAllBytes(Paths.get(args[0]));
+        byte[] temp = Files.readAllBytes(Paths.get(args[1]));
+        byte[] key = new byte[text.length];
+        int i = 0;
+        while (i < text.length) {
+            for (int j = 0; j < temp.length; j++) {
+                if (i + j < text.length)
+                    key[i + j] = temp[j];
             }
+            i += temp.length;
         }
+        byte[] result = new byte[text.length];
+        for (int j = 0; j < text.length; j++) {
+            result[j] = (byte) (text[j] ^ key[j]);
+        }
+        PrintWriter pw = new PrintWriter(args[2]);
+        for (byte b : result) {
+            pw.write(b);
+        }
+        pw.close();
+     */
+
+    //delete later 
+    public static void testShiftRow() {
+        int[][] idk = {
+            {74, 55, 12, 32},
+            {64, 23, 93, 62},
+            {67, 87, 34, 12},
+            {54, 67, 87, 90},
+        };
+        int[][] a = shiftRows(idk);
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print(a[i][j] + " ");
+            }
+            System.err.println();
+        }
+    }
 
 }
 
