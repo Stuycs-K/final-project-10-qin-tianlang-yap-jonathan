@@ -99,6 +99,15 @@ public class AES {
 
     }
 
+    public static int[][] keySchedule(int[] key) {
+        //key size = 16 bytes
+        int column = 176;
+        int[][] keys = new int[4][44];
+        
+
+        return new int[0][0]; //stub
+    }
+
     //addRoundKey
     public static void addRoundKey(int[][] data) {
 
