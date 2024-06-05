@@ -17,6 +17,9 @@ Worked on Input of data
 ### 5/30/2024
 Researched mixColumn
 
+### 6/5/2024
+Researched and worked on addRoundKey
+
 ## Jonathan Yap
 
 ### 5/24/2024
