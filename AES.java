@@ -5,22 +5,22 @@ import java.nio.file.Paths;
 public class AES {
     public static void main(String[] args) throws IOException{
         // https://github.com/francisrstokes/githublog/blob/main/2022/6/15/rolling-your-own-crypto-aes.md
-        byte[] input_text = Files.readAllBytes(Paths.get(args[0]));
-        byte[] input_key = Files.readAllBytes(Paths.get(args[1]));
+        // byte[] input_text = Files.readAllBytes(Paths.get(args[0]));
+        // byte[] input_key = Files.readAllBytes(Paths.get(args[1]));
         
-        int[] text = new int[input_text.length];
-        for (int i = 0; i < input_text.length; i++) {
-            text[i] = input_text[i] & 0xFF;
-        }
-
+        // int[] text = new int[input_text.length];
         // for (int i = 0; i < input_text.length; i++) {
-        //     System.out.print(text[i] + " ");
+        //     text[i] = input_text[i] & 0xFF;
         // }
 
-        int[] key = new int[input_key.length];
-        for (int i = 0; i < input_key.length; i++) {
-            key[i] = input_key[i] & 0xFF;
-        }
+        // // for (int i = 0; i < input_text.length; i++) {
+        // //     System.out.print(text[i] + " ");
+        // // }
+
+        // int[] key = new int[input_key.length];
+        // for (int i = 0; i < input_key.length; i++) {
+        //     key[i] = input_key[i] & 0xFF;
+        // }
 
         // split original data to 16 byte sections, each 16 byte section will be stored in a 4x4 int[][], with each element storing one byte in hex. 
         int temp =1; //stub
@@ -96,7 +96,13 @@ public class AES {
 
     //mixColumn
     public static void mixColumn(int[][] data) {
+        int[] temp = {0, 0, 0, 0};
 
+  temp[0] = GF_Mult(0x02, column[0]) ^ GF_Mult(0x03, column[1]) ^ column[2] ^ column[3];
+  temp[1] = column[0] ^ GF_Mult(0x02, column[1]) ^ GF_Mult(0x03, column[2]) ^ column[3];
+  temp[2] = column[0] ^ column[1] ^ GF_Mult(0x02, column[2]) ^ GF_Mult(0x03, column[3]);
+  temp[3] = GF_Mult(0x03, column[0]) ^ column[1] ^ column[2] ^ GF_Mult(0x02, column[3]);
+        // temp[0] = Integer.toBinaryString(data[0][0]);
     }
 
     //addRoundKey
@@ -104,6 +110,7 @@ public class AES {
 
     }
 
+    //XOR
     /*
      * byte[] text = Files.readAllBytes(Paths.get(args[0]));
         byte[] temp = Files.readAllBytes(Paths.get(args[1]));
