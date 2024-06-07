@@ -104,7 +104,7 @@ public class AES {
         int[][] expandedKey = new int[4][44];
         int[] temp = new int[4];
         int i = 0;
-        //test
+
         while (i < 4) {
             expandedKey[0][i] = key[4 * i];
             expandedKey[1][i] = key[4 * i + 1];
