@@ -20,6 +20,9 @@ Researched mixColumn
 ### 6/5/2024
 Researched and worked on addRoundKey
 
+### 6/6/2024
+Finished addRoundKey
+
 ## Jonathan Yap
 
 ### 5/24/2024
