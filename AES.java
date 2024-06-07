@@ -4,7 +4,7 @@ import java.nio.file.Paths;
 
 public class AES {
     public static void main(String[] args) throws IOException{
-    testMixColumn();
+        testShiftRow();
 
         // https://github.com/francisrstokes/githublog/blob/main/2022/6/15/rolling-your-own-crypto-aes.md
         // byte[] input_text = Files.readAllBytes(Paths.get(args[0]));
@@ -205,6 +205,27 @@ public class AES {
         };
         mixColumn(idk);
     }
+
+    // public static int[][] test(int[][] data) {
+    //     int[][] returnData = new int[4][4];
+    //     // int i = 0;
+    //     // int j = 0;
+    //     // int[] tempnumbers = new int[4];
+    //     for (int i = 0; i < 4; i++) {
+    //         for (int j = 0; j < 4; j++) {
+    //             int offset = i;
+    //             // tempnumbers[i + offset] = data[i][j];
+    //             if (j + offset >= 4) {
+    //                 //out of bounds error
+    //                 returnData[i][j + offset - 4] = data[i][j];
+    //             }
+    //             else {
+    //                 returnData[i][j + offset] = data[i][j];
+    //             }
+    //         }
+    //     }
+    //     return returnData;
+    // }
 }
 
     // int[][] sbox_Inv = new int[][]{
