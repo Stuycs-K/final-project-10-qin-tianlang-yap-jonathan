@@ -27,31 +27,33 @@ public class AES {
         testShiftRow();
 
         // https://github.com/francisrstokes/githublog/blob/main/2022/6/15/rolling-your-own-crypto-aes.md
-        // byte[] input_text = Files.readAllBytes(Paths.get(args[0]));
-        // byte[] input_key = Files.readAllBytes(Paths.get(args[1]));
+        byte[] input_text = Files.readAllBytes(Paths.get(args[0]));
+        byte[] input_key = Files.readAllBytes(Paths.get(args[1]));
         
-        // int[] text = new int[input_text.length];
+        int[] text = new int[input_text.length];
+        for (int i = 0; i < input_text.length; i++) {
+            text[i] = input_text[i] & 0xFF;
+        }
+
         // for (int i = 0; i < input_text.length; i++) {
-        //     text[i] = input_text[i] & 0xFF;
+        //     System.out.print(text[i] + " ");
         // }
 
-        // // for (int i = 0; i < input_text.length; i++) {
-        // //     System.out.print(text[i] + " ");
-        // // }
-
-        // int[] key = new int[input_key.length];
-        // for (int i = 0; i < input_key.length; i++) {
-        //     key[i] = input_key[i] & 0xFF;
-        // }
+        int[] key = new int[input_key.length];
+        for (int i = 0; i < input_key.length; i++) {
+            key[i] = input_key[i] & 0xFF;
+        }
 
         // split original data to 16 byte sections, each 16 byte section will be stored in a 4x4 int[][], with each element storing one byte in hex. 
-        int temp =1; //stub
-        while (temp==0){
+        for (int i = 0; i < 10; i++) {
             int[][] data = new int[4][4];
             subBytes(data);
             shiftRows(data);
-            //mixColumn(data);
-            addRoundKey(data , new int[1][1], 1); // stub
+            for (int j = 0; j < 4; j++) {
+                int[] tempData = data[j];
+                mixColumn(tempData);
+            }
+            addRoundKey(data , new int[1][1], i); // stub
         }
 
        
@@ -188,7 +190,7 @@ public class AES {
             temp[i] = s_box[temp[i] / 16][temp[i] % 16];
         }
         int[] round_contants = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1B, 0x36};
-        temp[0] ^= round_contants[n - 1];;
+        temp[0] ^= round_contants[n - 1];
 
         return temp;
     }
