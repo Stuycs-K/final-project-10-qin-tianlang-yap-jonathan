@@ -50,13 +50,8 @@ public class AES {
             int[][] data = new int[4][4];
             subBytes(data);
             shiftRows(data);
-<<<<<<< HEAD
-            mixColumn(data);
+            //mixColumn(data);
             addRoundKey(data , new int[1][1], 1); // stub
-=======
-            // mixColumn(data);
-            addRoundKey(data);
->>>>>>> origin/jonathan
         }
 
        
