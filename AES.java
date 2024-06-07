@@ -120,7 +120,7 @@ public class AES {
             }
 
             if (i % 4 == 0) {
-                temp = keyScheduleCore(temp, i / 4);
+                temp = keySchedule(temp, i / 4);
             }
 
             for (int k = 0; k < 4; k++) {
@@ -132,7 +132,7 @@ public class AES {
         return expandedKey;
     }
 
-    public static int[] keyScheduleCore(int[] word, int n) {
+    public static int[] keySchedule(int[] word, int n) {
         int[] temp = new int[4];
 
         temp[0] = word[1];
