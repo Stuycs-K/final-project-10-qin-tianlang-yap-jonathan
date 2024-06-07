@@ -4,6 +4,8 @@ import java.nio.file.Paths;
 
 public class AES {
     public static void main(String[] args) throws IOException{
+    testMixColumn();
+
         // https://github.com/francisrstokes/githublog/blob/main/2022/6/15/rolling-your-own-crypto-aes.md
         // byte[] input_text = Files.readAllBytes(Paths.get(args[0]));
         // byte[] input_key = Files.readAllBytes(Paths.get(args[1]));
@@ -28,7 +30,7 @@ public class AES {
             int[][] data = new int[4][4];
             subBytes(data);
             shiftRows(data);
-            mixColumn(data);
+            // mixColumn(data);
             addRoundKey(data);
         }
 
@@ -95,21 +97,33 @@ public class AES {
 
 
     //mixColumn
-    public static void mixColumn(int[][] data) {
-        int[][] mixColumnMatrix = {
-                { 0x02, 0x03, 0x01, 0x01 },
-                { 0x01, 0x02, 0x03, 0x01 },
-                { 0x01, 0x01, 0x02, 0x03 },
-                { 0x03, 0x01, 0x01, 0x02 }
-        };
+    public static void mixColumn(int[] data) {
         
         int[] temp = {0, 0, 0, 0};
+        temp[0] = gmul(0x02, data[0]) ^ gmul(0x03, data[1]) ^ data[2] ^ data[3];
+        temp[1] = data[0] ^ gmul(0x02, data[1]) ^ gmul(0x03, data[2]) ^ data[3];
+        temp[2] = data[0] ^ data[1] ^ gmul(0x02, data[2]) ^ gmul(0x03, data[3]);
+        temp[3] = gmul(0x03, data[0]) ^ data[1] ^ data[2] ^ gmul(0x02, data[3]);
 
-//   temp[0] = GF_Mult(0x02, column[0]) ^ GF_Mult(0x03, column[1]) ^ column[2] ^ column[3];
-//   temp[1] = column[0] ^ GF_Mult(0x02, column[1]) ^ GF_Mult(0x03, column[2]) ^ column[3];
-//   temp[2] = column[0] ^ column[1] ^ GF_Mult(0x02, column[2]) ^ GF_Mult(0x03, column[3]);
-//   temp[3] = GF_Mult(0x03, column[0]) ^ column[1] ^ column[2] ^ GF_Mult(0x02, column[3]);
-        // temp[0] = Integer.toBinaryString(data[0][0]);
+        for (int i = 0; i < 4; i++) {
+            if (temp[i] > 256) {
+                temp[i] -= 256;
+            }
+        }
+        // for (int i = 0; i < 4; i++) {
+        //     System.out.print(temp[i] + " ");
+        //     System.err.println();
+        // }
+        // for (int i = 0; i < 4; i++) {
+        //     for (int j = 0; j < 4; j++) {
+        //         System.err.println(data[i][j]);
+        //     }
+        // }
+
+
+        // for (int i = 0; i < 4; i++) {
+        //     data[i] = temp[i];
+        // }
     }
 
     private static int gmul(int a, int b) {
@@ -175,6 +189,22 @@ public class AES {
         }
     }
 
+    public static void testMixColumn() {
+        // int[][] idk = {
+        //         { 0x87, 0xF2, 0x4D, 0x97 },
+        //         { 0x6E, 0x4C, 0x90, 0xEC },
+        //         { 0x46, 0xE7, 0x4A, 0xC3 },
+        //         { 0xA6, 0x8C, 0xD8, 0x95 },
+        // };
+        int[] idk = {
+        //  219, 19, 83, 69
+         	// 242, 10, 34, 92 ,
+         	// 1, 1, 1, 1 ,
+        	// 198, 198, 198, 198	,
+            45, 38, 49, 76
+        };
+        mixColumn(idk);
+    }
 }
 
     // int[][] sbox_Inv = new int[][]{
