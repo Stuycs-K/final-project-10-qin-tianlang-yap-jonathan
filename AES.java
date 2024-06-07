@@ -24,23 +24,25 @@ public class AES {
     };
 
     public static void main(String[] args) throws IOException{
-        // https://github.com/francisrstokes/githublog/blob/main/2022/6/15/rolling-your-own-crypto-aes.md
-        byte[] input_text = Files.readAllBytes(Paths.get(args[0]));
-        byte[] input_key = Files.readAllBytes(Paths.get(args[1]));
-        
-        int[] text = new int[input_text.length];
-        for (int i = 0; i < input_text.length; i++) {
-            text[i] = input_text[i] & 0xFF;
-        }
+        testShiftRow();
 
+        // https://github.com/francisrstokes/githublog/blob/main/2022/6/15/rolling-your-own-crypto-aes.md
+        // byte[] input_text = Files.readAllBytes(Paths.get(args[0]));
+        // byte[] input_key = Files.readAllBytes(Paths.get(args[1]));
+        
+        // int[] text = new int[input_text.length];
         // for (int i = 0; i < input_text.length; i++) {
-        //     System.out.print(text[i] + " ");
+        //     text[i] = input_text[i] & 0xFF;
         // }
 
-        int[] key = new int[input_key.length];
-        for (int i = 0; i < input_key.length; i++) {
-            key[i] = input_key[i] & 0xFF;
-        }
+        // // for (int i = 0; i < input_text.length; i++) {
+        // //     System.out.print(text[i] + " ");
+        // // }
+
+        // int[] key = new int[input_key.length];
+        // for (int i = 0; i < input_key.length; i++) {
+        //     key[i] = input_key[i] & 0xFF;
+        // }
 
         // split original data to 16 byte sections, each 16 byte section will be stored in a 4x4 int[][], with each element storing one byte in hex. 
         int temp =1; //stub
@@ -48,8 +50,13 @@ public class AES {
             int[][] data = new int[4][4];
             subBytes(data);
             shiftRows(data);
+<<<<<<< HEAD
             mixColumn(data);
             addRoundKey(data , new int[1][1], 1); // stub
+=======
+            // mixColumn(data);
+            addRoundKey(data);
+>>>>>>> origin/jonathan
         }
 
        
@@ -96,8 +103,50 @@ public class AES {
     }
 
     //mixColumn
-    public static void mixColumn(int[][] data) {
+    public static void mixColumn(int[] data) {
+        
+        int[] temp = {0, 0, 0, 0};
+        temp[0] = gmul(0x02, data[0]) ^ gmul(0x03, data[1]) ^ data[2] ^ data[3];
+        temp[1] = data[0] ^ gmul(0x02, data[1]) ^ gmul(0x03, data[2]) ^ data[3];
+        temp[2] = data[0] ^ data[1] ^ gmul(0x02, data[2]) ^ gmul(0x03, data[3]);
+        temp[3] = gmul(0x03, data[0]) ^ data[1] ^ data[2] ^ gmul(0x02, data[3]);
 
+        for (int i = 0; i < 4; i++) {
+            if (temp[i] > 256) {
+                temp[i] -= 256;
+            }
+        }
+        // for (int i = 0; i < 4; i++) {
+        //     System.out.print(temp[i] + " ");
+        //     System.err.println();
+        // }
+        // for (int i = 0; i < 4; i++) {
+        //     for (int j = 0; j < 4; j++) {
+        //         System.err.println(data[i][j]);
+        //     }
+        // }
+
+
+        // for (int i = 0; i < 4; i++) {
+        //     data[i] = temp[i];
+        // }
+    }
+
+    private static int gmul(int a, int b) {
+        int p = 0;
+        int hiBitSet;
+        for (int counter = 0; counter < 8; counter++) {
+            if ((b & 1) != 0) {
+                p ^= a;
+            }
+            hiBitSet = (a & 0x80);
+            a <<= 1;
+            if (hiBitSet != 0) {
+                a ^= 0x1b; // x^8 + x^4 + x^3 + x + 1
+            }
+            b >>= 1;
+        }
+        return p;
     }
 
     public static int[][] keyExpansion(int[] key) {
@@ -158,6 +207,7 @@ public class AES {
         }
     }
 
+    //XOR
     /*
      * byte[] text = Files.readAllBytes(Paths.get(args[0]));
         byte[] temp = Files.readAllBytes(Paths.get(args[1]));
@@ -198,6 +248,43 @@ public class AES {
         }
     }
 
+    public static void testMixColumn() {
+        // int[][] idk = {
+        //         { 0x87, 0xF2, 0x4D, 0x97 },
+        //         { 0x6E, 0x4C, 0x90, 0xEC },
+        //         { 0x46, 0xE7, 0x4A, 0xC3 },
+        //         { 0xA6, 0x8C, 0xD8, 0x95 },
+        // };
+        int[] idk = {
+        //  219, 19, 83, 69
+         	// 242, 10, 34, 92 ,
+         	// 1, 1, 1, 1 ,
+        	// 198, 198, 198, 198	,
+            45, 38, 49, 76
+        };
+        mixColumn(idk);
+    }
+
+    // public static int[][] test(int[][] data) {
+    //     int[][] returnData = new int[4][4];
+    //     // int i = 0;
+    //     // int j = 0;
+    //     // int[] tempnumbers = new int[4];
+    //     for (int i = 0; i < 4; i++) {
+    //         for (int j = 0; j < 4; j++) {
+    //             int offset = i;
+    //             // tempnumbers[i + offset] = data[i][j];
+    //             if (j + offset >= 4) {
+    //                 //out of bounds error
+    //                 returnData[i][j + offset - 4] = data[i][j];
+    //             }
+    //             else {
+    //                 returnData[i][j + offset] = data[i][j];
+    //             }
+    //         }
+    //     }
+    //     return returnData;
+    // }
 }
 
     // int[][] sbox_Inv = new int[][]{
