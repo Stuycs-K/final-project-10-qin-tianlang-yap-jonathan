@@ -23,6 +23,9 @@ Researched and worked on addRoundKey
 ### 6/6/2024
 Finished addRoundKey
 
+### 6/7/2024
+Worked on input output
+
 ## Jonathan Yap
 
 ### 5/24/2024
@@ -38,3 +41,7 @@ Tested shiftRows
 
 ### 5/30/2024
 Researched addRoundKey
+
+### 6/7/2024
+Worked on input output
+Worked on presentation
