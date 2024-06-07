@@ -96,13 +96,37 @@ public class AES {
 
     //mixColumn
     public static void mixColumn(int[][] data) {
+        int[][] mixColumnMatrix = {
+                { 0x02, 0x03, 0x01, 0x01 },
+                { 0x01, 0x02, 0x03, 0x01 },
+                { 0x01, 0x01, 0x02, 0x03 },
+                { 0x03, 0x01, 0x01, 0x02 }
+        };
+        
         int[] temp = {0, 0, 0, 0};
 
-  temp[0] = GF_Mult(0x02, column[0]) ^ GF_Mult(0x03, column[1]) ^ column[2] ^ column[3];
-  temp[1] = column[0] ^ GF_Mult(0x02, column[1]) ^ GF_Mult(0x03, column[2]) ^ column[3];
-  temp[2] = column[0] ^ column[1] ^ GF_Mult(0x02, column[2]) ^ GF_Mult(0x03, column[3]);
-  temp[3] = GF_Mult(0x03, column[0]) ^ column[1] ^ column[2] ^ GF_Mult(0x02, column[3]);
+//   temp[0] = GF_Mult(0x02, column[0]) ^ GF_Mult(0x03, column[1]) ^ column[2] ^ column[3];
+//   temp[1] = column[0] ^ GF_Mult(0x02, column[1]) ^ GF_Mult(0x03, column[2]) ^ column[3];
+//   temp[2] = column[0] ^ column[1] ^ GF_Mult(0x02, column[2]) ^ GF_Mult(0x03, column[3]);
+//   temp[3] = GF_Mult(0x03, column[0]) ^ column[1] ^ column[2] ^ GF_Mult(0x02, column[3]);
         // temp[0] = Integer.toBinaryString(data[0][0]);
+    }
+
+    private static int gmul(int a, int b) {
+        int p = 0;
+        int hiBitSet;
+        for (int counter = 0; counter < 8; counter++) {
+            if ((b & 1) != 0) {
+                p ^= a;
+            }
+            hiBitSet = (a & 0x80);
+            a <<= 1;
+            if (hiBitSet != 0) {
+                a ^= 0x1b; // x^8 + x^4 + x^3 + x + 1
+            }
+            b >>= 1;
+        }
+        return p;
     }
 
     //addRoundKey
