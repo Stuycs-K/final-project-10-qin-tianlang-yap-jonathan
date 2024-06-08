@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 public class AES {
 
@@ -30,42 +31,60 @@ public class AES {
         byte[] input_text = Files.readAllBytes(Paths.get(args[0]));
         byte[] input_key = Files.readAllBytes(Paths.get(args[1]));
         
-        int[] text = new int[input_text.length];
-        for (int i = 0; i < input_text.length; i++) {
-            text[i] = input_text[i] & 0xFF;
-        }
-
-        // for (int i = 0; i < input_text.length; i++) {
-        //     System.out.print(text[i] + " ");
-        // }
-
         int[] key = new int[input_key.length];
         for (int i = 0; i < input_key.length; i++) {
             key[i] = input_key[i] & 0xFF;
         }
+        
+        int[][] roundKeys = keyExpansion(key);
 
-        // split original data to 16 byte sections, each 16 byte section will be stored in a 4x4 int[][], with each element storing one byte in hex. 
-        for (int i = 0; i < 10; i++) {
+        byte[] padded_text = pad(input_text);
+        byte[] cipher = new byte[padded_text.length];
+        for (int k = 0; k < padded_text.length / 16; k++) {
             int[][] data = new int[4][4];
-            subBytes(data);
-            shiftRows(data);
-            for (int j = 0; j < 4; j++) {
-                int[] tempData = data[j];
-                mixColumn(tempData);
+            for (int i = 0; i < 16; i++) {
+                data[i / 4][i % 4] = padded_text[k * 16 + i] & 0xFF;
             }
-            addRoundKey(data , new int[1][1], i); // stub
+
+            addRoundKey(data, roundKeys, 0);
+
+            for (int round = 1; round < 10; round++) {
+                subBytes(data);
+                data = shiftRows(data);
+                for (int j = 0; j < 4; j++) {
+                    int[] tempData = data[j];
+                    mixColumn(tempData);
+                }
+                addRoundKey(data, roundKeys, round);
+            }
+
+            subBytes(data);
+            data = shiftRows(data);
+            addRoundKey(data, roundKeys, 10);
+
+            for (int i = 0; i < 16; i++) {
+                cipher[k * 16 + i] = (byte) data[i / 4][i % 4];
+            }
         }
 
-       
+        Files.write(Paths.get("cipher_text.txt"), cipher);
     }
 
     // 128 bits key
     // ECB operation mode:  encrypts each block on its own and displays the resultant encrypted blocks one after another.
 
+
+    public static byte[] pad(byte[] input) {
+        int paddingLength = 16 - (input.length % 16);
+        byte[] paddedInput = Arrays.copyOf(input, input.length + paddingLength);
+        for (int i = input.length; i < paddedInput.length; i++) {
+            paddedInput[i] = (byte) paddingLength;
+        }
+        return paddedInput;
+    }
+
     //subBytes
     public static void subBytes(int[][] data) {
-       
-
         // for (int i = 0; i < s_box.length; i ++) {
         //     System.out.print(s_box[0][i] + " ");
         // }
