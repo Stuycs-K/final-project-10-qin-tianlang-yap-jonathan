@@ -24,7 +24,10 @@ Researched and worked on addRoundKey
 Finished addRoundKey
 
 ### 6/7/2024
-Worked on input output
+Worked on input and output
+
+### 6/8/2024
+Finished input and output 
 
 ## Jonathan Yap
 

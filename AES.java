@@ -75,12 +75,12 @@ public class AES {
 
 
     public static byte[] pad(byte[] input) {
-        int paddingLength = 16 - (input.length % 16);
-        byte[] paddedInput = Arrays.copyOf(input, input.length + paddingLength);
-        for (int i = input.length; i < paddedInput.length; i++) {
-            paddedInput[i] = (byte) paddingLength;
+        int padding_length = 16 - (input.length % 16);
+        byte[] padded_input = Arrays.copyOf(input, input.length + padding_length);
+        for (int i = input.length; i < padded_input.length; i++) {
+            padded_input[i] = (byte) padding_length;
         }
-        return paddedInput;
+        return padded_input;
     }
 
     //subBytes
