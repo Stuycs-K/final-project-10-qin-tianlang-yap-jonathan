@@ -49,7 +49,7 @@ public class AES {
             addRoundKey(data, roundKeys, 0);
 
             for (int round = 1; round < 10; round++) {
-                System.out.println(data.length + " " + data[0].length);
+                //System.out.println(data.length + " " + data[0].length);
                 subBytes(data);
                 data = shiftRows(data);
                 mixColumn(data);
@@ -89,7 +89,7 @@ public class AES {
 
         for (int i = 0; i < data.length; i++) {
             for (int j = 0; j < data[0].length; j++) {
-                System.out.println(data[i][j] / 16);
+                //System.out.println(data[i][j] / 16);
                 data[i][j] = s_box[data[i][j] / 16][ data[i][j] % 16];
             }
         }
@@ -132,20 +132,15 @@ public class AES {
     }
 
     private static int gmul(int a, int b) {
-        int p = 0;
-        int hiBitSet;
-        for (int counter = 0; counter < 8; counter++) {
-            if ((b & 1) != 0) {
-                p ^= a;
+        int result = 0;
+        while (a != 0) {
+            if ((a & 1) != 0) {
+                result ^= b;
             }
-            hiBitSet = (a & 0x80);
-            a <<= 1;
-            if (hiBitSet != 0) {
-                a ^= 0x1b; // x^8 + x^4 + x^3 + x + 1
-            }
-            b >>= 1;
+            b = ((b << 1) & 0xFF) ^ (((b >>> 7) & 1) * 0x1B);
+            a >>>= 1;
         }
-        return p;
+        return result;
     }
 
     public static int[][] keyExpansion(int[] key) {
@@ -205,30 +200,6 @@ public class AES {
             }
         }
     }
-
-    //XOR
-    /*
-     * byte[] text = Files.readAllBytes(Paths.get(args[0]));
-        byte[] temp = Files.readAllBytes(Paths.get(args[1]));
-        byte[] key = new byte[text.length];
-        int i = 0;
-        while (i < text.length) {
-            for (int j = 0; j < temp.length; j++) {
-                if (i + j < text.length)
-                    key[i + j] = temp[j];
-            }
-            i += temp.length;
-        }
-        byte[] result = new byte[text.length];
-        for (int j = 0; j < text.length; j++) {
-            result[j] = (byte) (text[j] ^ key[j]);
-        }
-        PrintWriter pw = new PrintWriter(args[2]);
-        for (byte b : result) {
-            pw.write(b);
-        }
-        pw.close();
-     */
 
     //delete later 
     public static void testShiftRow() {
