@@ -12,7 +12,8 @@ However, by the late 1990s, it was starting to become outdated and people were a
 So, the U.S. National Institute of Standards and Technology (NIST) started a competition to find a replacement.\
 After 15 candidates and 5 finalist, the Rijndael algorithm won the competition and became AES.
 
-There are 3 different versions of AES encryption, each has a block size of 128 bits, but with different key lengths: 128, 192 and 256 bits.
+There are 3 different versions of AES encryption, each has a block size of 128 bits, but with different key lengths: 128, 192 and 256 bits.\
+In this presentation, we will be working with 128 bits.
 
 How does AES work?
 
@@ -21,11 +22,26 @@ Symmetric here means that we can use the same key to both encrypt and decrypt th
 A block refers to the plaintext.\
 We have to convert the plaintext into blocks.\
 Each block is made up of 16 bytes (128 bits), and is arranged in column-major order.\
-The idea with AES is that this block is scrambled and mutated in a way that is completely reversible, driven by the secret key.\
+Since a single block is 16 bytes, a 4x4 matrix holds the data in a single block, with each cell holding a single byte of information.\
+AES transforms each 16-byte block of data by a combination of moving the bytes around, performing reversible mathematical operations on them, and swapping them out for other bytes in a lookup table.\
+The idea with AES is that this block is scrambled and mutated in a way that is completely reversible, driven by the secret key.
 
-This part of the presentation will cover the first 2 of 4 steps of AES encryption, SubBytes and ShiftRows. 
+The first step of the algorithm is the Key schedule step\
+This step expands the secret key, creating more keys which will be used later.
 
-The SubBytes step goes first.\
+The second step is the rounds step\
+There are 4 different rounds:\
+Substitute Bytes\
+Shift Rows\
+Mix Columns\
+Adding the Round Key\
+each of these round keys will happen 10 times, except for Mix Column, which will not happen in the final round.
+
+![AES_visualization](AES_visualization.png)
+
+This presentation will cover the first 2 of 4 rounds of AES encryption, SubBytes and ShiftRows. 
+
+The SubBytes round goes first.\
 It takes in a 4 by 4
 It uses a lookup table like the vigenere cipher.\
 ![AES_S-box](AES_S-box.png)\
@@ -35,9 +51,9 @@ So, for example, lets say there is a byte represented by 53 in hexadecimal forma
 In order to encrypt that in SubBytes, you would take the first Nibble (4 bits, or half a byte), and that would be the 'y' value, or row, in the S-box.\
 Then, you would take the secoond Nibble, and that would be the 'x' value, or column, in the S-box.\
 So, using this formula, lets say you have to encrypt the number 53, that would convert into ed.\
-You would do this for every byte. \
+You would do this for every byte.
 
-The next step is the ShiftRows step.\
+The next round is the ShiftRows round.\
 It takes a 4 by 4 row, and shifts each row to the left by a certain amount:\
 the first row shifts by nothing\
 the second row shifts to the left by 1\
