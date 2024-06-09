@@ -6,7 +6,7 @@ The Advanced Encryption Standard (AES), or Rijndael was developed by two Belgian
 
 History of AES\
 Before AES:\
-There used to be a standard called the Data Encryption Standard (DES), implemented in 1977.\ 
+There used to be a standard called the Data Encryption Standard (DES), implemented in 1977.\
 However, by the late 1990s, it was starting to become outdated and people were able to brute force attack DES and crack it.
 
 So, the U.S. National Institute of Standards and Technology (NIST) started a competition to find a replacement.\
