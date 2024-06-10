@@ -11,7 +11,7 @@ However, by the late 1990s, it was starting to become outdated and people were a
 So, in 1998, the U.S. National Institute of Standards and Technology (NIST) started a competition to find a replacement.\
 After 15 candidates and 5 finalist, in 2001, the Rijndael algorithm won the competition and became AES.\
 The Rijndael algorithm is a desendant of the Square algorithm, also created by Joan Daemen and Vincent Rijmen.\
-On May 26, 2002, AES became a U.S. federal government standard\
+On May 26, 2002, AES became a U.S. federal government standard
 
 One of the reasons why Rijndael was eventually chosen as AES is because of its low hardware requirements.\
 AES performs well on many different types of hardware, from 8-bit smart cards to high-performance computers.
