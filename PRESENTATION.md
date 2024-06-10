@@ -13,6 +13,9 @@ After 15 candidates and 5 finalist, in 2001, the Rijndael algorithm won the comp
 The Rijndael algorithm is a desendant of the Square algorithm, also created by Joan Daemen and Vincent Rijmen.\
 On May 26, 2002, AES became a U.S. federal government standard\
 
+One of the reasons why Rijndael was eventually chosen as AES is because of its low hardware requirements.\
+AES performs well on many different types of hardware, from 8-bit smart cards to high-performance computers.
+
 There are 3 different versions of AES encryption, each has a block size of 128 bits, but with different key lengths: 128, 192 and 256 bits.\
 In this presentation, we will be working with 128 bits.
 
