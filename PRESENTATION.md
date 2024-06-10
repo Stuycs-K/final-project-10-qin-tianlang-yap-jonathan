@@ -30,11 +30,28 @@ Since a single block is 16 bytes, a 4x4 matrix holds the data in a single block,
 AES transforms each 16-byte block of data by a combination of moving the bytes around, performing reversible mathematical operations on them, and swapping them out for other bytes in a lookup table.\
 The idea with AES is that this block is scrambled and mutated in a way that is completely reversible, driven by the secret key.
 
+There are many different modes of operation for AES encryption\
+One of the modes is ECB: Electronic Code Book\
+This mode is the most simplist method of the algorithm\
+First compute all of the round keys\
+then iterate through the plaintext data in chunks of 128-bits, turning that data into a block\
+then run it through the algorithm.\
+The ciphertext output is placed into an output buffer or file, and the next 128-bits is loaded and processed.\
+This is the mode that is used in this code
+
+Another mode is CBC: Cipher Block Chaining\
+In AES-CBC, the problem is addressed by forcing interdependence between all of the blocks in the plaintext data.\
+When encrypting, a random initial value is chosen.\
+The initial value is a random 16-byte block, which is added to the first plaintext block before it is encrypted.\
+The output is the first ciphertext block.\
+The next plaintext block is then added to ciphertext block before being encrypted\
+This forces a reversible chain between the ciphertext block and the plaintext blocks
+
 The first step of the algorithm is the Key schedule step\
 This step expands the secret key, creating more keys which will be used later.
 
-The second step is the rounds step\
-There are 4 different rounds:\
+The second step is the actions step\
+There are 4 different actions:\
 Substitute Bytes\
 Shift Rows\
 Mix Columns\
@@ -43,9 +60,9 @@ each of these round keys will happen 10 times, except for Mix Column, which will
 
 ![AES_visualization](AES_visualization.png)
 
-This presentation will cover the first 2 of 4 rounds of AES encryption, SubBytes and ShiftRows. 
+This presentation will cover the first 2 of 4 actions of AES encryption, SubBytes and ShiftRows. 
 
-The SubBytes round goes first.\
+The SubBytes action goes first.\
 It takes in a 4 by 4
 It uses a lookup table like the vigenere cipher.\
 ![AES_S-box](AES_S-box.png)\
@@ -58,7 +75,7 @@ So, using this formula, lets say you have to encrypt the number 53, that would c
 You would do this for every byte.\
 ![SubBytes](SubBytes.png)
 
-The next round is the ShiftRows round.\
+The next action is the ShiftRows action.\
 It takes a 4 by 4 row, and shifts each row to the left by a certain amount:\
 the first row shifts by nothing\
 the second row shifts to the left by 1\
