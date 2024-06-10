@@ -4,7 +4,7 @@
 ## Group Info
 
 Person 0: Jonathan Yap\
-Person 1: Tianlong Qin
+Person 1: Tianlang Qin
 
 ## Overview
 
@@ -13,6 +13,6 @@ An encoder for AES
 ## Instructions
 
 To encode:\
-make encode ARGS="plaintext key"
+make encode ARGS="plaintext key"\
 To hexdump:\
 make hexdump ARGS="cipher_text.txt"
