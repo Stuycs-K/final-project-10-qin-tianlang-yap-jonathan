@@ -37,6 +37,8 @@ First compute all of the round keys\
 then iterate through the plaintext data in chunks of 128-bits, turning that data into a block\
 then run it through the algorithm.\
 The ciphertext output is placed into an output buffer or file, and the next 128-bits is loaded and processed.\
+One potental problem with this mode is that even if the data itself is secure\
+leaking structural information like this can be still be devastating\
 This is the mode that is used in this code
 
 Another mode is CBC: Cipher Block Chaining\
