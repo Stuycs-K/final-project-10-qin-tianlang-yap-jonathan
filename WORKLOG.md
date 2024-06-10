@@ -29,6 +29,9 @@ Worked on input and output
 ### 6/8/2024
 Finished input and output 
 
+### 6/9/2024 
+Finished and cleaned up the code
+
 ## Jonathan Yap
 
 ### 5/24/2024
