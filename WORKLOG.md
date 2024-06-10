@@ -11,7 +11,7 @@ Organized s_box \
 Added method outline for AES
 
 ### 5/29/2024
-Worked on and finished subBytes
+Worked on and finished subBytes\
 Worked on Input of data
 
 ### 5/30/2024
