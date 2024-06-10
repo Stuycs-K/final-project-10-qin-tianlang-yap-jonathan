@@ -42,18 +42,18 @@ Organized s_box \
 Worked on shiftByte
 
 ### 5/29/2024
-Finished shiftRows
+Finished shiftRows\
 Tested shiftRows
 
 ### 5/30/2024
 Researched addRoundKey
 
 ### 6/7/2024
-Finished Mixcolumn
+Finished Mixcolumn\
 Worked on presentation
 
 ### 6/8/2024
-Worked on input output
+Worked on input output\
 Worked on presentation
 
 ### 6/9/2024
