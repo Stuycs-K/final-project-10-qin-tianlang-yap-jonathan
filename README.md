@@ -16,3 +16,6 @@ To encode:\
 make encode ARGS="plaintext key"\
 To hexdump:\
 make hexdump ARGS="cipher_text.txt"
+
+Video:\
+https://drive.google.com/file/d/1qXOx3SDgFYa2sl5YjiKG4XEAqGXS39me/view?usp=sharing
