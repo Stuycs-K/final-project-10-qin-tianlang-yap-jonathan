@@ -29,6 +29,9 @@ Worked on input and output
 ### 6/8/2024
 Finished input and output 
 
+### 6/9/2024
+Finished makefile
+
 ## Jonathan Yap
 
 ### 5/24/2024
@@ -46,5 +49,12 @@ Tested shiftRows
 Researched addRoundKey
 
 ### 6/7/2024
+Finished Mixcolumn
+Worked on presentation
+
+### 6/8/2024
 Worked on input output
 Worked on presentation
+
+### 6/9/2024
+Finished presentation
